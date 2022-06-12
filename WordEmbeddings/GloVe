@@ -2,7 +2,7 @@ import numpy as np
 import scipy
 import sklearn
 import pickle as pkl
-from util import RFC, BuildData
+from util import RFC, RFCs, BuildData
 import torch
 import torchtext
 
@@ -42,9 +42,4 @@ for i in xtest:
     print(a)
     
     
-s1 = RFC(30, xtrain_glove, ytrain, xtest_glove, ytest)
-s2 = RFC(50, xtrain_glove, ytrain, xtest_glove, ytest)
-s3 = RFC(80, xtrain_glove, ytrain, xtest_glove, ytest)
-s4 = RFC(100, xtrain_glove, ytrain, xtest_glove, ytest)
-s5 = RFC(200, xtrain_glove, ytrain, xtest_glove, ytest)
-s6 = RFC(500, xtrain_glove, ytrain, xtest_glove, ytest)
+acc = RFCs(xtrain_glove, ytrain, xtest_glove, ytest)
