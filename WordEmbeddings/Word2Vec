@@ -3,21 +3,9 @@ import pickle as pkl
 from util import RFC
 from gensim.models.word2vec import Word2Vec
 
-with open('tweets_clean.pkl', 'rb') as f:
-    data = pkl.load(f)
 
-xtrain = []
-ytrain = []
-xtest = []
-ytest = []
-for i in data[:336]:
-    xtrain.append(i[1])
-    ytrain.append(i[2])
+xtrain, xtest, ytrain, ytest = BuildData('tweets_clean.pkl')
 
-
-for i in data[336:]:
-    xtest.append(i[1])
-    ytest.append(i[2])
 
 w2vmodel = Word2Vec(vector_size=200, min_count=5)
 w2vmodel.build_vocab(xtrain)
