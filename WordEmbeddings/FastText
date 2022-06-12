@@ -3,25 +3,12 @@ import pickle as pkl
 from gensim.models import FastText
 
 
-with open('tweets_clean.pkl', 'rb') as f:
-    data = pkl.load(f)
-
-xtrain = []
-ytrain = []
-xtest = []
-ytest = []
-for i in data[:336]:
-    xtrain.append(i[1])
-    ytrain.append(i[2])
+xtrain, xtest, ytrain, ytest = BuildData('tweets_clean.pkl')
 
 
-for i in data[336:]:
-    xtest.append(i[1])
-    ytest.append(i[2])
-
-ftmodel = FastText(vector_size=200, min_count=5)  # instantiate
+ftmodel = FastText(vector_size=200, min_count=5)
 ftmodel.build_vocab(xtrain)
-ftmodel.train(xtrain, total_examples=ftmodel.corpus_count, epochs=10)  #
+ftmodel.train(xtrain, total_examples=ftmodel.corpus_count, epochs=10)
 
 
 xtrain_ft = []
