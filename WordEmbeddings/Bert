@@ -5,21 +5,8 @@ import torch
 from transformers import BertTokenizer, BertModel
 from util import RFC
 
-with open('author_sentences.pkl', 'rb') as f:
-    data = pkl.load(f)
-    
-xtrain = []
-xtest = []
-ytrain = []
-ytest = []
 
-for i in data[:336]:
-    xtrain.append(i[0])
-    ytrain.append(i[1])
-
-for i in data[336:]:
-    xtest.append(i[0])
-    ytest.append(i[1])
+xtrain, xtest, ytrain, ytest = BuildData('author_sentence.pkl')
     
     
 tokenizer=BertTokenizer.from_pretrained('bert-base-uncased')
