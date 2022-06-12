@@ -80,3 +80,9 @@ def RFC(n, xtrain, ytrain, xtest, ytest):
     score_rf = rfc.score(xtest, ytest)
     print('The classification accuracy with ' + str(n) +' trees is', score_rf)
     return score_rf
+    
+def RFCs(xtrain, ytrain, xtest, ytest):
+    acc = []
+    for n in [30, 50, 80, 100, 200, 500]:
+        acc.append(RFC(n, xtrain, ytrain, xtest, ytest))
+    return acc
