@@ -1,6 +1,6 @@
 import numpy as np
 import pickle as pkl
-from util import RFC
+from util import BuildData, RFC, RFCs
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 xtrain, xtest, ytrain, ytest = BuildData('author_sentences.pkl')
@@ -84,9 +84,4 @@ for i in xtest:
     print(a)
     
     
-s1 = RFC(30, xtrain_gpt, ytrain, xtest_gpt, ytest)
-s2 = RFC(50, xtrain_gpt, ytrain, xtest_gpt, ytest)
-s3 = RFC(80, xtrain_gpt, ytrain, xtest_gpt, ytest)
-s4 = RFC(100, xtrain_gpt, ytrain, xtest_gpt, ytest)
-s5 = RFC(200, xtrain_gpt, ytrain, xtest_gpt, ytest)
-s6 = RFC(500, xtrain_gpt, ytrain, xtest_gpt, ytest)
+acc = RFCs(xtrain_gpt, ytrain, xtest_gpt, ytest)
