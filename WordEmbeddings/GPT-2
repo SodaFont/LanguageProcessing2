@@ -3,21 +3,8 @@ import pickle as pkl
 from util import RFC
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-with open('author_sentences.pkl', 'rb') as f:
-    data = pkl.load(f)
-    
-xtrain = []
-xtest = []
-ytrain = []
-ytest = []
+xtrain, xtest, ytrain, ytest = BuildData('author_sentences.pkl')
 
-for i in data[:336]:
-    xtrain.append(i[0])
-    ytrain.append(i[1])
-
-for i in data[336:]:
-    xtest.append(i[0])
-    ytest.append(i[1])
     
 model = GPT2LMHeadModel.from_pretrained('gpt2')
 word_embeddings = model.transformer.wte.weight
