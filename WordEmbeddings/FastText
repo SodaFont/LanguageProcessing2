@@ -1,5 +1,6 @@
 import numpy as np
 import pickle as pkl
+from util import BuildData, RFC, RFCs
 from gensim.models import FastText
 
 
@@ -32,9 +33,4 @@ for i in xtest:
     xtest_ft.append(np.reshape(word_vecft,(2000000)))
     
     
-s1 = RFC(30, xtrain_ft, ytrain, xtest_ft, ytest)
-s2 = RFC(50, xtrain_ft, ytrain, xtest_ft, ytest)
-s3 = RFC(80, xtrain_ft, ytrain, xtest_ft, ytest)
-s4 = RFC(100, xtrain_ft, ytrain, xtest_ft, ytest)
-s5 = RFC(200, xtrain_ft, ytrain, xtest_ft, ytest)
-s6 = RFC(500, xtrain_ft, ytrain, xtest_ft, ytest)
+acc = RFCs(xtrain_ft, ytrain, xtest_ft, ytest)
