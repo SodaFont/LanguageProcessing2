@@ -88,9 +88,9 @@ for i in xtest:
     print(a)
     
     
-s1 = tree(30, xtrain_bert, ytrain, xtest_bert, ytest)
-s2 = tree(50, xtrain_bert, ytrain, xtest_bert, ytest)
-s3 = tree(80, xtrain_bert, ytrain, xtest_bert, ytest)
-s4 = tree(100, xtrain_bert, ytrain, xtest_bert, ytest)
-s5 = tree(200, xtrain_bert, ytrain, xtest_bert, ytest)
-s6 = tree(500, xtrain_bert, ytrain, xtest_bert, ytest)
+s1 = RFC(30, xtrain_bert, ytrain, xtest_bert, ytest)
+s2 = RFC(50, xtrain_bert, ytrain, xtest_bert, ytest)
+s3 = RFC(80, xtrain_bert, ytrain, xtest_bert, ytest)
+s4 = RFC(100, xtrain_bert, ytrain, xtest_bert, ytest)
+s5 = RFC(200, xtrain_bert, ytrain, xtest_bert, ytest)
+s6 = RFC(500, xtrain_bert, ytrain, xtest_bert, ytest)
