@@ -1,0 +1,53 @@
+import numpy as np
+import pickle as pkl
+from gensim.models import FastText
+
+
+with open('tweets_clean.pkl', 'rb') as f:
+    data = pkl.load(f)
+
+xtrain = []
+ytrain = []
+xtest = []
+ytest = []
+for i in data[:336]:
+    xtrain.append(i[1])
+    ytrain.append(i[2])
+
+
+for i in data[336:]:
+    xtest.append(i[1])
+    ytest.append(i[2])
+
+ftmodel = FastText(vector_size=200, min_count=5)  # instantiate
+ftmodel.build_vocab(xtrain)
+ftmodel.train(xtrain, total_examples=ftmodel.corpus_count, epochs=10)  #
+
+
+xtrain_ft = []
+xtest_ft = []
+
+
+for i in xtrain:
+    words = i.split( )
+    word_vecft = np.zeros((10000, 200))
+    for n in range(len(words)):
+        if words[n] in ftmodel.wv:
+            word_vecft[n] = ftmodel.wv[words[n]]
+    xtrain_ft.append(np.reshape(word_vecft,(2000000)))
+
+for i in xtest:
+    word_vecft = np.zeros((10000, 200))
+    words = i.split( )
+    for n in range(len(words)):
+        if words[n] in ftmodel.wv:
+            word_vecft[n] = ftmodel.wv[words[n]]
+    xtest_ft.append(np.reshape(word_vecft,(2000000)))
+    
+    
+s1 = RFC(30, xtrain_ft, ytrain, xtest_ft, ytest)
+s2 = RFC(50, xtrain_ft, ytrain, xtest_ft, ytest)
+s3 = RFC(80, xtrain_ft, ytrain, xtest_ft, ytest)
+s4 = RFC(100, xtrain_ft, ytrain, xtest_ft, ytest)
+s5 = RFC(200, xtrain_ft, ytrain, xtest_ft, ytest)
+s6 = RFC(500, xtrain_ft, ytrain, xtest_ft, ytest)
