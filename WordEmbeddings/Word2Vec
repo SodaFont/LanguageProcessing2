@@ -1,0 +1,53 @@
+import numpy as np
+import pickle as pkl
+from util import RFC
+from gensim.models.word2vec import Word2Vec
+
+with open('tweets_clean.pkl', 'rb') as f:
+    data = pkl.load(f)
+
+xtrain = []
+ytrain = []
+xtest = []
+ytest = []
+for i in data[:336]:
+    xtrain.append(i[1])
+    ytrain.append(i[2])
+
+
+for i in data[336:]:
+    xtest.append(i[1])
+    ytest.append(i[2])
+
+w2vmodel = Word2Vec(vector_size=200, min_count=5)
+w2vmodel.build_vocab(xtrain)
+w2vmodel.train(xtrain, total_examples=w2vmodel.corpus_count, epochs=10)
+
+
+xtrain_wv = []
+xtest_wv = []
+
+
+for i in xtrain:
+    words = i.split( )
+    word_vecwv = np.zeros((10000, 200))
+    for n in range(len(words)):
+        if words[n] in w2vmodel.wv:
+            word_vecwv[n] = w2vmodel.wv[words[n]]
+    xtrain_wv.append(np.reshape(word_vecwv,(2000000)))
+
+for i in xtest:
+    word_vecwv = np.zeros((10000, 200))
+    words = i.split( )
+    for n in range(len(words)):
+        if words[n] in w2vmodel.wv:
+            word_vecwv[n] = w2vmodel.wv[words[n]]
+    xtest_wv.append(np.reshape(word_vecwv,(2000000)))
+    
+    
+s1 = RFC(30, xtrain_wv, ytrain, xtest_wv, ytest)
+s2 = RFC(50, xtrain_wv, ytrain, xtest_wv, ytest)
+s3 = RFC(80, xtrain_wv, ytrain, xtest_wv, ytest)
+s4 = RFC(100, xtrain_wv, ytrain, xtest_wv, ytest)
+s5 = RFC(200, xtrain_wv, ytrain, xtest_wv, ytest)
+s6 = RFC(500, xtrain_wv, ytrain, xtest_wv, ytest)
