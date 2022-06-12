@@ -1,0 +1,60 @@
+import numpy as np
+import re
+from sklearn.ensemble import RandomForestClassifier
+
+
+def text_clean(text):
+    text = text.lower()
+    text = text.replace('\\','')
+    # clean the
+    emoji = re.compile("["
+                               u"\U0001F600-\U0001F64F"  # emoticons
+                               u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                               u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                               u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                               u"\U00002500-\U00002BEF"  # chinese char
+                               u"\U00002702-\U000027B0"
+                               u"\U00002702-\U000027B0"
+                               u"\U000024C2-\U0001F251"
+                               u"\U0001f926-\U0001f937"
+                               u"\U00010000-\U0010ffff"
+                               u"\u2640-\u2642"
+                               u"\u2600-\u2B55"
+                               u"\u200d"
+                               u"\u23cf"
+                               u"\u23e9"
+                               u"\u231a"
+                               u"\ufe0f"  # dingbats
+                               u"\u3030"
+                               "]+", flags=re.UNICODE)
+    text = emoji.sub(r'', text)
+    text = text.lower()
+    text = re.sub(r"hashtag", "", text)
+    text = re.sub(r"url", "", text)
+    text = re.sub(r"user", "", text)
+    text = re.sub(r"i'm", "i am", text)
+    text = re.sub(r"he's", "he is", text)
+    text = re.sub(r"she's", "she is", text)
+    text = re.sub(r"that's", "that is", text)
+    text = re.sub(r"what's", "what is", text)
+    text = re.sub(r"where's", "where is", text)
+    text = re.sub(r"\'ll", " will", text)
+    text = re.sub(r"\'ve", " have", text)
+    text = re.sub(r"\'re", " are", text)
+    text = re.sub(r"\'d", " would", text)
+    text = re.sub(r"won't", "will not", text)
+    text = re.sub(r"don't", "do not", text)
+    text = re.sub(r"didn't", "did not", text)
+    text = re.sub(r"can't", "cannot", text)
+    text = re.sub(r"it's", "it is", text)
+    text = re.sub(r"couldn't", "could not", text)
+    text = re.sub(r"haven't", "have not", text)
+    text = re.sub(r"[,.\"\'!@#$%^&*(){}?/;`~:<>+=-]", "", text)
+    return text
+    
+    
+def tree(n, xtrain, ytrain, xtest, ytest):
+    rfc = RandomForestClassifier(n_estimators=n).fit(xtrain, ytrain)
+    score_rf = rfc.score(xtest, ytest)
+    print('The classification accuracy based on bert embedding with ' + str(n) +' trees is', score_rf)
+    return score_rf
