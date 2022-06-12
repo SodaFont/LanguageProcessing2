@@ -1,6 +1,6 @@
 import numpy as np
 import pickle as pkl
-from util import RFC
+from util import BuildData, RFC, RFCs
 from gensim.models.word2vec import Word2Vec
 
 
@@ -33,9 +33,4 @@ for i in xtest:
     xtest_wv.append(np.reshape(word_vecwv,(2000000)))
     
     
-s1 = RFC(30, xtrain_wv, ytrain, xtest_wv, ytest)
-s2 = RFC(50, xtrain_wv, ytrain, xtest_wv, ytest)
-s3 = RFC(80, xtrain_wv, ytrain, xtest_wv, ytest)
-s4 = RFC(100, xtrain_wv, ytrain, xtest_wv, ytest)
-s5 = RFC(200, xtrain_wv, ytrain, xtest_wv, ytest)
-s6 = RFC(500, xtrain_wv, ytrain, xtest_wv, ytest)
+acc = RFCs(xtrain_wv, ytrain, xtest_wv, ytest)
