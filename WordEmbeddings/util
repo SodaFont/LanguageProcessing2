@@ -53,8 +53,8 @@ def text_clean(text):
     return text
     
     
-def tree(n, xtrain, ytrain, xtest, ytest):
+def RFC(n, xtrain, ytrain, xtest, ytest):
     rfc = RandomForestClassifier(n_estimators=n).fit(xtrain, ytrain)
     score_rf = rfc.score(xtest, ytest)
-    print('The classification accuracy based on bert embedding with ' + str(n) +' trees is', score_rf)
+    print('The classification accuracy with ' + str(n) +' trees is', score_rf)
     return score_rf
