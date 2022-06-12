@@ -3,7 +3,7 @@ import pickle as pkl
 from transformers import BertTokenizer
 import torch
 from transformers import BertTokenizer, BertModel
-from util import RFC
+from util import RFC, RFCs, BuildData
 
 
 xtrain, xtest, ytrain, ytest = BuildData('author_sentence.pkl')
@@ -75,9 +75,4 @@ for i in xtest:
     print(a)
     
     
-s1 = RFC(30, xtrain_bert, ytrain, xtest_bert, ytest)
-s2 = RFC(50, xtrain_bert, ytrain, xtest_bert, ytest)
-s3 = RFC(80, xtrain_bert, ytrain, xtest_bert, ytest)
-s4 = RFC(100, xtrain_bert, ytrain, xtest_bert, ytest)
-s5 = RFC(200, xtrain_bert, ytrain, xtest_bert, ytest)
-s6 = RFC(500, xtrain_bert, ytrain, xtest_bert, ytest)
+acc = RFCs(xtrain_bert, ytrain, xtest_bert, ytest)
